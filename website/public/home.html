@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Energy and Environment</title>
+    <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="home_styling.css">
+</head>
+<body>
+<div class="banner" class="section">
+    <img src="assets/logo.jpg" id="logo" />
+    <button id="btnLogin" style="visibility: hidden">Log In</button>
+    <button id="btnLogout"style="visibility: hidden">Log Out</button>
+</div>
+
+<div class="home-page">
+    <div id="content">
+        <div id="navigationBar" class="section">
+            <!--Left side bar navigation to other pages-->
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="archives.html">Archives</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!--Main area for page-->
+        <div id="main">
+            <p style="text-align: center;"> CURRENT POSTS: </p>
+            <div id="posts">
+            </div>
+            <div id="new-post" style="visibility: hidden">
+                <p style="text-align: center;"> CREATE NEW POST: </p>
+                <div class="form">
+                    <textarea class = "mainInput" id="postTitle" placeholder="Post title"></textarea>
+                    <textarea class = "mainInput" id="postAuthor" placeholder="Author"></textarea>
+                    <p>Please write a small abstract:</p>
+                    <textarea class = "bigInput" id="postAbstract" placeholder="Abstract"></textarea>
+                    <p>Please select Post publish date:</p>
+                    <input type="date" id="postDate" name="date" />
+                    <p>Please select Post PDF file:</p>
+                    <input type="file" class="file-select" accept="application/pdf">
+                </div>
+                </br>
+                <button id="btnAddNewPost" class="btn btn-action">Add Post</button>
+            </div>
+        </div>
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="loginForm" method="POST">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="loginModalLabel">Login</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="modal-title" id="messageModalLabel"></h4>
+                            <div class="form-group">
+                                <label class="control-label">Email:</label>
+                                <input type="text" class="form-control" id="loginEmail">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Password:</label>
+                                <input type="password" class="form-control" id="loginPassword">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="doLogin">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="home.js"></script>
+</body>
+</html>
