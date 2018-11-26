@@ -84,6 +84,7 @@ async function uploadPost(){
     let title = postTitle.value;
     let author = postAuthor.value;
     let abstract = postAbstract.value;
+    let content = postContent.value;
     let date = postDate.value;
     let timestamp = new Date().getTime();
 
@@ -96,6 +97,7 @@ async function uploadPost(){
                 title : title,
                 author : author,
                 abstract : abstract,
+                content: content,
                 date: date,
                 fileURL : url
             });
@@ -104,6 +106,7 @@ async function uploadPost(){
 
     document.getElementById('postTitle').value = '';
     document.getElementById('postAuthor').value = '';
+    document.getElementById('postContent').value = '';
     document.getElementById('postAbstract').value = '';
 
     window.alert('Successful post created!');
@@ -121,6 +124,7 @@ function getPostsFromDB(){
                     title : post.val().title,
                     author : post.val().author,
                     abstract : post.val().abstract,
+                    content: post.val().content,
                     fileURL : post.val().fileURL,
                     date : post.val().date
                 })
@@ -137,10 +141,10 @@ function selectChanged() {
     for(x in this.postsList){
         var newDiv = document.createElement("div");
         var html = ' <div  class="post"> ';
-        html += ' <p> Title: ' + postsList[x].title + ' </p>';
-        html += ' <p> Author: ' + postsList[x].author + ' </p>';
-        html += ' <p> Date: ' + postsList[x].date + ' </p>';
-        html += ' <span style=\"white-space: pre-line\">Abstract: '+postsList[x].abstract+'</span>';
+        html += ' <h2>' + postsList[x].title + ' </h2>';
+        html += ' <h3> Author: ' + postsList[x].author + ' </h3>';
+        html += ' <h4> Date: ' + postsList[x].date + ' </h4>';
+        html += ' <span style=\"white-space: pre-line\"><b>Abstract:</b> '+postsList[x].abstract+'\n</span>';
         html += ' <button id=btnSeeMore'+postsList[x].date+"/"+postsList[x].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
         html += ' </div>';
 

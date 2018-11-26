@@ -80,10 +80,10 @@ function selectChanged(){
         var dateHTML = '<button class="collapsible">' + dates[i][0].date + '</button>';
         dateHTML += ' <div  class="content"> ';
         for(j in this.dates[i]){
-            dateHTML += ' <p> Title: ' + dates[i][j].title + ' </p>';
-            dateHTML += ' <p> Author: ' + dates[i][j].author + ' </p>';
-            dateHTML += ' <p> Date: ' + dates[i][j].date + ' </p>';
-            dateHTML += ' <p> Abstract: ' + dates[i][j].abstract + ' </p>';
+            dateHTML += ' <h3> Title: ' + dates[i][j].title + ' </h3>';
+            dateHTML += ' <h4> Author: ' + dates[i][j].author + ' </h4>';
+            dateHTML += ' <h5> Date: ' + dates[i][j].date + ' </h5>';
+            dateHTML += ' <p> <b>Abstract: </b>' + dates[i][j].abstract + ' </p>';
             dateHTML += ' <button id=btnSeeMore'+dates[i][j].date+"/"+dates[i][j].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
 
         }

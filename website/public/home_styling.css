@@ -23,8 +23,22 @@
     font-size: 14px;
 }
 
-.bigInput {
+.abstractInput {
     height: 150px;
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 1px solid;
+    margin: 5px 0 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 12px;
+    resize: none;
+}
+
+.contentInput {
+    height: 400px;
     font-family: "Roboto", sans-serif;
     outline: 0;
     background: #f2f2f2;
@@ -46,6 +60,7 @@
 .post {
     border-radius:3px 3px 3px 3px;
     background-color: #f1f1f1;
+    padding: 10px;
 }
 
 .postExpand {
@@ -130,7 +145,7 @@ div#posts{
 
 div#new-post{
     margin: 10px auto;
-    width: 50%;
+    width: 75%;
     height:100%;
 }
 
