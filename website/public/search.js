@@ -1,5 +1,6 @@
-dates = [];
-user = null;
+postsList = [];
+var user = null;
+
 (function() {
     // Initialize Firebase
     var config = {
@@ -12,6 +13,7 @@ user = null;
     };
     firebase.initializeApp(config);
 
+
     //Add log out events
     const btnLogout = document.getElementById('btnLogout');
     const btnLogin = document.getElementById('btnLogin');
@@ -22,7 +24,6 @@ user = null;
     });
 
     firebase.auth().onAuthStateChanged(u => {
-
         if(u != null) {
             console.log('logged in');
             btnLogin.parentNode.removeChild(btnLogin);
@@ -47,7 +48,8 @@ user = null;
         }
     });
 
-    getDates();
+    getPostsFromDB();
+
 }());
 
 function spanText(textStr, textClasses) {
@@ -55,70 +57,53 @@ function spanText(textStr, textClasses) {
     return '<span class="'+classNames+'">'+ textStr + '</span>';
 }
 
-function getDates(){
+function getPostsFromDB(){
+    let myStr = parent.document.URL.substring(parent.document.URL.indexOf('?')+8, parent.document.URL.length).split("%20").toString();
+    var searchTerms = myStr.replace(/,/g, ' ').split(" ").filter(Boolean);
+    console.log(searchTerms);
+
     const dbPostsRef = firebase.database().ref('posts/');
-    this.dates = [];
-    dbPostsRef.once('value').then(function(snap) {
+    this.postsList = [];
+    dbPostsRef.orderByValue().limitToLast(3).once('value').then(function(snap) {
         snap.forEach(function(date) {
-            let postsOnDate = [];
             date.forEach(function (post){
-                postsOnDate.push({
-                    id: post.key,
-                    title : post.val().title,
-                    author : post.val().author,
-                    abstract : post.val().abstract,
-                    tags : post.val().tags,
-                    fileURL : post.val().fileURL,
-                    date : post.val().date
-                })
+                let tags = post.val().tags.toString().split(",");
+                if(tags.some(r=> searchTerms.includes(r))){
+                    postsList.push({
+                        id: post.key,
+                        title : post.val().title,
+                        author : post.val().author,
+                        abstract : post.val().abstract,
+                        content: post.val().content,
+                        tags: post.val().tags,
+                        fileURL : post.val().fileURL,
+                        date : post.val().date
+                    })
+                }
             });
-            this.dates.push(postsOnDate);
         });
-        this.dates.reverse();
+        this.postsList.reverse();
         selectChanged();
     });
 }
 
-function selectChanged(){
-    var currentDiv = document.getElementById("archiveDates");
+function selectChanged() {
+    var currentDiv = document.getElementById("posts");
     currentDiv.innerHTML = "";
-    for(i in this.dates){
-        var dateDiv = document.createElement("div");
-        var dateHTML = '<button class="collapsible">' + dates[i][0].date + '</button>';
-        dateHTML += ' <div  class="content"> ';
-        for(j in this.dates[i]){
-            dateHTML += ' <h3> Title: ' + dates[i][j].title + ' </h3>';
-            dateHTML += ' <h4> Author: ' + dates[i][j].author + ' </h4>';
-            dateHTML += ' <h5> Date: ' + dates[i][j].date + ' </h5>';
-            dateHTML += ' <p> <b>Abstract: </b>' + dates[i][j].abstract + ' </p>';
-            dateHTML += ' <p><b>Tags:</b> ' + dates[i][j].tags +'</p>';
-            dateHTML += ' <button id=btnSeeMore'+dates[i][j].date+"/"+dates[i][j].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
+    for(x in this.postsList){
+        var newDiv = document.createElement("div");
+        var html = ' <div  class="post"> ';
+        html += ' <h2>' + postsList[x].title + ' </h2>';
+        html += ' <h3> Author: ' + postsList[x].author + ' </h3>';
+        html += ' <h4> Date: ' + postsList[x].date + ' </h4>';
+        html += ' <span style=\"white-space: pre-line\"><b>Abstract:</b> '+postsList[x].abstract+'\n\n</span>';
+        html += ' <p><b>Tags:</b> ' + postsList[x].tags +'</p>';
+        html += ' <button id=btnSeeMore'+postsList[x].date+"/"+postsList[x].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
+        html += ' </div>';
 
-        }
-        dateHTML += ' </div>';
-
-        dateDiv.innerHTML = dateHTML;
-        currentDiv.appendChild(dateDiv);
-    }
-    addEventListenersToCollapsible();
-}
-
-
-function addEventListenersToCollapsible(){
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-    //Loads hidden text fields when collapsible clicked by user
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            console.log(content.className);
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        });
+        newDiv.style.paddingBottom = "45px";
+        newDiv.innerHTML = html;
+        currentDiv.appendChild(newDiv);
     }
 }
 

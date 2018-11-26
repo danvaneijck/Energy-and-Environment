@@ -18,6 +18,11 @@ var user = null;
     const btnLogout = document.getElementById('btnLogout');
     const btnLogin = document.getElementById('btnLogin');
 
+    const searchBtn = document.getElementById('searchBtn');
+    searchBtn.addEventListener('click', e => {
+        window.location.href = 'search.html?search=' + searchInput.value;
+    });
+
     firebase.auth().onAuthStateChanged(u => {
         if(u != null) {
             console.log('logged in');
@@ -65,6 +70,28 @@ var user = null;
     });
     document.querySelector('.file-select').addEventListener('change', handleFileUploadChange);
 
+    var checkList = document.getElementById('list1');
+    var items = document.getElementById('items');
+    checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+        if (items.classList.contains('visible')){
+            items.classList.remove('visible');
+            items.style.display = "none";
+        }
+
+        else{
+            items.classList.add('visible');
+            items.style.display = "block";
+        }
+
+
+    };
+
+    items.onblur = function(evt) {
+        items.classList.remove('visible');
+    };
+
+
+
 }());
 
 function spanText(textStr, textClasses) {
@@ -81,14 +108,19 @@ const btnAddNewPost = document.getElementById('btnAddNewPost');
 btnAddNewPost.addEventListener('click', uploadPost);
 
 async function uploadPost(){
+    let elements = document.querySelectorAll('.items input:checked');
+
     let title = postTitle.value;
     let author = postAuthor.value;
     let abstract = postAbstract.value;
     let content = postContent.value;
+    let tags = Array.prototype.map.call(elements, function(el, i) {
+        return el.name;
+    });
     let date = postDate.value;
     let timestamp = new Date().getTime();
 
-    //upload image
+    //upload file
     await firebase.storage().ref().child('posts/'+file.name).put(file)
         .then(snapshot => snapshot.ref.getDownloadURL())
         .then((url) => {
@@ -98,16 +130,12 @@ async function uploadPost(){
                 author : author,
                 abstract : abstract,
                 content: content,
+                tags: tags.toString(),
                 date: date,
                 fileURL : url
             });
         })
         .catch(console.error);
-
-    document.getElementById('postTitle').value = '';
-    document.getElementById('postAuthor').value = '';
-    document.getElementById('postContent').value = '';
-    document.getElementById('postAbstract').value = '';
 
     window.alert('Successful post created!');
     location = location;
@@ -116,7 +144,7 @@ async function uploadPost(){
 function getPostsFromDB(){
     const dbPostsRef = firebase.database().ref('posts/');
     this.postsList = [];
-    dbPostsRef.orderByValue().limitToLast(3).once('value').then(function(snap) {
+    dbPostsRef.orderByValue().limitToLast(5).once('value').then(function(snap) {
         snap.forEach(function(date) {
             date.forEach(function (post){
                 postsList.push({
@@ -125,6 +153,7 @@ function getPostsFromDB(){
                     author : post.val().author,
                     abstract : post.val().abstract,
                     content: post.val().content,
+                    tags: post.val().tags,
                     fileURL : post.val().fileURL,
                     date : post.val().date
                 })
@@ -144,7 +173,8 @@ function selectChanged() {
         html += ' <h2>' + postsList[x].title + ' </h2>';
         html += ' <h3> Author: ' + postsList[x].author + ' </h3>';
         html += ' <h4> Date: ' + postsList[x].date + ' </h4>';
-        html += ' <span style=\"white-space: pre-line\"><b>Abstract:</b> '+postsList[x].abstract+'\n</span>';
+        html += ' <span style=\"white-space: pre-line\"><b>Abstract:</b> '+postsList[x].abstract+'\n\n</span>';
+        html += ' <p><b>Tags:</b> ' + postsList[x].tags +'</p>';
         html += ' <button id=btnSeeMore'+postsList[x].date+"/"+postsList[x].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
         html += ' </div>';
 

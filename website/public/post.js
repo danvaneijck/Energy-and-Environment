@@ -10,6 +10,11 @@
     };
     firebase.initializeApp(config);
 
+    const searchBtn = document.getElementById('searchBtn');
+    searchBtn.addEventListener('click', e => {
+        window.location.href = 'search.html?search=' + searchInput.value;
+    });
+
     const btnLogout = document.getElementById('btnLogout');
 
     firebase.auth().onAuthStateChanged(u => {
@@ -53,6 +58,7 @@ async function showPost(id) {
         "<h3>Author: "+postInfo.author+"</h3>" +
         "<span style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
         "</br>" +
+        ' <p><b>Tags:</b> ' + postInfo.tags +'</p>' +
         "<a href="+postInfo.fileURL+" download>Download full article</a>" +
         "</div>"
 }

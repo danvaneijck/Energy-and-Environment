@@ -12,6 +12,10 @@
 <body>
 <div class="banner" class="section">
     <img src="assets/logo.jpg" id="logo" />
+    <div class="search-container">
+        <input id="searchInput" type="text" placeholder="Search.." name="search">
+        <button  id="searchBtn" type="submit">SEARCH</button>
+    </div>
     <button id="btnLogin" style="visibility: hidden">Log In</button>
     <button id="btnLogout"style="visibility: hidden">Log Out</button>
 </div>
@@ -47,6 +51,43 @@
                     <input type="date" id="postDate" name="date" />
                     <p>Please select Post PDF file:</p>
                     <input type="file" class="file-select" accept="application/pdf">
+                </div>
+                <div id="list1" class="dropdown-check-list" tabindex="100">
+                    <span class="anchor">Select Tags</span>
+                    <ul id="items" class="items">
+                        <input type="checkbox" name="Oil and Gas" >Oil and Gas </input>
+                        <li><input type="checkbox" name="Oil"/>Electricity</li>
+                        <li><input type="checkbox" name="Environment"/>Environment </li>
+                        <li><input type="checkbox" name="RMA"/>RMA </li>
+                        <li><input type="checkbox" name="Marine"/>Marine </li>
+                        <li><input type="checkbox" name="Legislation"/>Legislation </li>
+                        <li><input type="checkbox" name="Climate Change"/>Climate Change</li>
+                        <li><input type="checkbox" name="Generation"/>Generation</li>
+                        <li><input type="checkbox" name="Distribution"/>Distribution</li>
+                        <li><input type="checkbox" name="Exploration"/>Exploration</li>
+                        <li><input type="checkbox" name="Mining"/>Mining</li>
+                        <li><input type="checkbox" name="Coal"/>Coal</li>
+                        <li><input type="checkbox" name="Geothermal"/>Geothermal</li>
+                        <li><input type="checkbox" name="Wind"/>Wind</li>
+                        <li><input type="checkbox" name="Co-generation"/>Co-generation</li>
+                        <li><input type="checkbox" name="Water"/>Water</li>
+                        <li><input type="checkbox" name="Air"/>Air</li>
+                        <li><input type="checkbox" name="Local Government"/>Local Government</li>
+                        <li><input type="checkbox" name="Agriculture"/>Agriculture</li>
+                        <li><input type="checkbox" name="Select committees"/>Select committees</li>
+                        <li><input type="checkbox" name="Petrol"/>Petrol</li>
+                        <li><input type="checkbox" name="Transport"/>Transport</li>
+                        <li><input type="checkbox" name="Forestry"/>Forestry</li>
+                        <li><input type="checkbox" name="ETS"/>ETS</li>
+                        <li><input type="checkbox" name="Industrial"/>Industrial</li>
+                        <li><input type="checkbox" name="Efficiency"/>Efficiency</li>
+                        <li><input type="checkbox" name="Bio-security"/>Bio-security</li>
+                        <li><input type="checkbox" name="Waste"/>Waste</li>
+                        <li><input type="checkbox" name="Fisheries"/>Fisheries</li>
+                        <li><input type="checkbox" name="Hazardous substance"/>Hazardous substance</li>
+                        <li><input type="checkbox" name="Genetic modification"/>Genetic modification</li>
+                        <li><input type="checkbox" name="Natural hazard"/>Natural hazard</li>
+                    </ul>
                 </div>
                 </br>
                 <button id="btnAddNewPost" class="btn btn-action">Add Post</button>

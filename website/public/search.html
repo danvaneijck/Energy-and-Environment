@@ -16,12 +16,11 @@
         <input id="searchInput" type="text" placeholder="Search.." name="search">
         <button  id="searchBtn" type="submit">SEARCH</button>
     </div>
-    <button id="btnLogin" class="btn btn-action" style="visibility: hidden">Log In</button>
-    <button id="btnLogout" class="btn btn-action" style="visibility: hidden">Log Out</button>
+    <button id="btnLogin" style="visibility: hidden">Log In</button>
+    <button id="btnLogout"style="visibility: hidden">Log Out</button>
 </div>
 
-<div class="archives-page">
-    <p align="center"><b>ARCHIVES</b></p>
+<div class="search-page">
     <div id="content">
         <div id="navigationBar" class="section">
             <!--Left side bar navigation to other pages-->
@@ -36,8 +35,8 @@
         </div>
         <!--Main area for page-->
         <div id="main">
-            <div id="archiveDates" class="section">
-
+            <p style="text-align: center;"> POSTS WHICH MATCH SEARCH RESULTS: </p>
+            <div id="posts">
             </div>
         </div>
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
@@ -70,6 +69,6 @@
     </div>
 
 </div>
-<script src="archives.js"></script>
+<script src="search.js"></script>
 </body>
 </html>
