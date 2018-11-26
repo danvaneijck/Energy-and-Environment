@@ -2,7 +2,7 @@
 
 /*Top banner properties on each portal page*/
 .banner {
-    width: 98%;
+    width: 97%;
     margin: 20px;
     display:inline-block;
     background-color: #f1f1f1;
@@ -88,6 +88,7 @@ html {
     overflow-x: hidden;
 }
 
+
 /*Log out button properties*/
 .banner button {
     font-family: "Roboto", sans-serif;
@@ -105,9 +106,9 @@ html {
 
 ul {
     list-style-type: none;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin: 0;
     padding: 0;
+    overflow: hidden;
     width: 100%;
     background-color: #f1f1f1;
     border-radius:3px 3px 3px 3px;
@@ -119,6 +120,16 @@ li a {
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
+}
+
+ul#tags li {
+    display:inline;
+    float: left;
+}
+
+#tagsBar {
+    width: 97%;
+    margin: 5px 20px;
 }
 
 /* Change the link colour on hover */

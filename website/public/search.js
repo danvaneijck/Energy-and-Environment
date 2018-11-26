@@ -59,7 +59,8 @@ function spanText(textStr, textClasses) {
 
 function getPostsFromDB(){
     let myStr = parent.document.URL.substring(parent.document.URL.indexOf('?')+8, parent.document.URL.length).split("%20").toString();
-    var searchTerms = myStr.replace(/,/g, ' ').split(" ").filter(Boolean);
+    let terms = myStr.replace(/,/g, ' ').split(" ").filter(Boolean);
+    let searchTerms = terms.join('|').toLowerCase().split('|');
     console.log(searchTerms);
 
     const dbPostsRef = firebase.database().ref('posts/');
@@ -67,8 +68,10 @@ function getPostsFromDB(){
     dbPostsRef.orderByValue().limitToLast(3).once('value').then(function(snap) {
         snap.forEach(function(date) {
             date.forEach(function (post){
-                let tags = post.val().tags.toString().split(",");
-                if(tags.some(r=> searchTerms.includes(r))){
+                let tags = post.val().tags.toString().split(",").toString();
+                tags = tags.replace(/,/g, ' ').split(" ").filter(Boolean);
+                console.log(tags)
+                if(tags.some(r=> searchTerms.includes(r.toLowerCase()))){
                     postsList.push({
                         id: post.key,
                         title : post.val().title,
