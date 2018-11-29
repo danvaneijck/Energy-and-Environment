@@ -20,21 +20,37 @@
         }
     });
 
-    const txtEmail = document.getElementById('txtEmail');
-    const txtPassword = document.getElementById('txtPassword');
     const btnLogin = document.getElementById('btnLogin');
-    const btnRegister = document.getElementById('btnRegister');
+    const btnReset = document.getElementById('btnReset');
+    const btnHome = document.getElementById('btnHome');
 
     //User presses button to begin login event
-    btnRegister.addEventListener('click', e => {
-        window.location = 'register.html';
-    });
+
 
     btnLogin.addEventListener('click', e => {
         login();
     });
 
+    btnReset.addEventListener('click', e => {
+        resetPassword();
+    });
+
+    btnHome.addEventListener('click', e => {
+        window.location = 'home.html';
+    });
+
 }());
+
+function resetPassword(){
+    var emailAddress = txtEmail.value;
+
+    firebase.auth().sendPasswordResetEmail(emailAddress).then(function() {
+        window.alert("Rest password email sent!");
+    }).catch(function(error) {
+        console.log(error.message);
+        window.alert(error.message);
+    });
+}
 
 function login(){
     //Get email and password

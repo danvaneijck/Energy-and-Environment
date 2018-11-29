@@ -70,8 +70,10 @@ function getPostsFromDB(){
             date.forEach(function (post){
                 let tags = post.val().tags.toString().split(",").toString();
                 tags = tags.replace(/,/g, ' ').split(" ").filter(Boolean);
-                console.log(tags)
-                if(tags.some(r=> searchTerms.includes(r.toLowerCase()))){
+                let title = post.val().title.toString().split(",").toString();
+                title = title.replace(/,/g, ' ').split(" ").filter(Boolean);
+                console.log(title)
+                if(tags.some(r=> searchTerms.includes(r.toLowerCase())) || title.some(r=> searchTerms.includes(r.toLowerCase()))){
                     postsList.push({
                         id: post.key,
                         title : post.val().title,
