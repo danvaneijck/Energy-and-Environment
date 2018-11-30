@@ -147,6 +147,16 @@ div#main{
     height:100%;
 }
 
+div#memberMain{
+    margin:5px 0px 5px 5px;
+    /*background-color: #f1f1f1; makes it transparent*/
+    display: inline-block;
+    padding: 20px;
+    width: 75%;
+    height:100%;
+}
+
+
 div#posts{
     margin: 10px auto;
     width: 75%;
