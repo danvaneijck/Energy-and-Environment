@@ -1,5 +1,6 @@
-postsList = [];
+var postsList = [];
 var user = null;
+var userInfo;
 
 (function() {
     // Initialize Firebase
@@ -36,6 +37,10 @@ var user = null;
                 }, function(error) {
                     console.error('Sign Out Error', error);
                 });
+            });
+            const dbUserRef = firebase.database().ref('members').child(user.uid);
+            dbUserRef.once('value').then(function(snap) {
+                userInfo = snap.val();
             });
         }
         else{
@@ -119,7 +124,15 @@ function readMore(id){
         $('#loginModal').modal('show');
     }
     else{
-        window.location.href = "post.html" + queryString;
+        let validDate = new Date(userInfo.validDate);
+        let currentDate = new Date();
+        if(currentDate.getTime() > validDate.getTime()){
+            window.alert("Your subscription has expired! Please renew");
+            window.location = "membership.html";
+        }
+        else{
+            window.location.href = "post.html" + queryString;
+        }
     }
     $('#loginForm').on('submit', function (e) {
         e.preventDefault();
