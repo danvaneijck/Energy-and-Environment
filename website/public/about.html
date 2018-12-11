@@ -4,15 +4,14 @@
     <meta charset="utf-8">
     <title>Energy and Environment</title>
     <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="home_styling.css">
 </head>
 <body>
-<div class="banner" class="section">
-    <img src="assets/logo.jpg" id="logo" />
-    <div class="search-container">
-        <input id="searchInput" type="text" placeholder="Search.." name="search">
-        <button  id="searchBtn" type="submit">SEARCH</button>
-    </div>
+<div id="logo">
+    <img src="assets/logo.jpg"  />
 </div>
 <div id="tagsBar" class="section">
     <nav>
@@ -31,23 +30,17 @@
 
 
 <div class="about-page">
-    <p align="center"><b>ABOUT</b></p>
     <div id="content">
+        <div class="search-container">
+            <input id="searchInput" type="text" placeholder="Search.." name="search">
+            <button  id="searchBtn" type="submit">SEARCH</button>
+            <button id="btnLogin" style="visibility: hidden">Log In</button>
+            <button id="btnLogout"style="visibility: hidden">Log Out</button>
+        </div>
         <div id="navigationBar" class="section">
-            <!--Left side bar navigation to other pages-->
-            <nav>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="archives.html">Archives</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="membership.html">Membership Info</a></li>
-                </ul>
-            </nav>
         </div>
         <!--Main area for page-->
         <div id="main">
-            <p style="text-align: center;"> ABOUT: </p>
 
         </div>
     </div>

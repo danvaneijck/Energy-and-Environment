@@ -10,14 +10,8 @@
     <link rel="stylesheet" href="home_styling.css">
 </head>
 <body>
-<div class="banner" class="section">
-    <img src="assets/logo.jpg" id="logo" />
-    <div class="search-container">
-        <input id="searchInput" type="text" placeholder="Search.." name="search">
-        <button  id="searchBtn" type="submit">SEARCH</button>
-    </div>
-    <button id="btnLogin" style="visibility: hidden">Log In</button>
-    <button id="btnLogout"style="visibility: hidden">Log Out</button>
+<div id="logo">
+    <img src="assets/logo.jpg"  />
 </div>
 <div id="tagsBar" class="section">
     <nav>
@@ -37,17 +31,13 @@
 
 <div class="search-page">
     <div id="content">
+        <div class="search-container">
+            <input id="searchInput" type="text" placeholder="Search.." name="search">
+            <button  id="searchBtn" type="submit">SEARCH</button>
+            <button id="btnLogin" style="visibility: hidden">Log In</button>
+            <button id="btnLogout"style="visibility: hidden">Log Out</button>
+        </div>
         <div id="navigationBar" class="section">
-            <!--Left side bar navigation to other pages-->
-            <nav>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="archives.html">Archives</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="membership.html">Membership Info</a></li>
-                </ul>
-            </nav>
         </div>
         <!--Main area for page-->
         <div id="main">

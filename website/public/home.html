@@ -10,14 +10,9 @@
     <link rel="stylesheet" href="home_styling.css">
 </head>
 <body>
-<div class="banner" class="section">
-    <img src="assets/logo.jpg" id="logo" />
-    <div class="search-container">
-        <input id="searchInput" type="text" placeholder="Search.." name="search">
-        <button  id="searchBtn" type="submit">SEARCH</button>
-    </div>
-    <button id="btnLogin" style="visibility: hidden">Log In</button>
-    <button id="btnLogout"style="visibility: hidden">Log Out</button>
+
+<div id="logo">
+    <img src="assets/logo.jpg"  />
 </div>
 
 <div id="tagsBar" class="section">
@@ -30,7 +25,9 @@
             <li><a href="search.html?search=Marine">Marine</a></li>
             <li><a href="search.html?search=Legislation">Legislation</a></li>
             <li><a href="search.html?search=Conservation">Conservation</a></li>
-            <li><a href="search.html?search=Climate%20Change">Climate Change</a></li>
+            <li><a href="search.html?search=Local%Government">Local Government</a></li>
+            <li><a href="search.html?search=Transport">Transport</a></li>
+            <li><a href="search.html?search=Water">Water</a></li>
         </ul>
     </nav>
 </div>
@@ -38,77 +35,91 @@
 
 <div class="home-page">
     <div id="content">
+        <div class="search-container">
+            <input id="searchInput" type="text" placeholder="Search.." name="search">
+            <button  id="searchBtn" type="submit">SEARCH</button>
+            <button id="btnLogin" style="visibility: hidden">Log In</button>
+            <button id="btnLogout"style="visibility: hidden">Log Out</button>
+        </div>
         <div id="navigationBar" class="section">
-            <!--Left side bar navigation to other pages-->
-            <nav>
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="archives.html">Archives</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="membership.html">Membership Info</a></li>
-                </ul>
-            </nav>
         </div>
         <!--Main area for page-->
         <div id="main">
             <div id="posts">
             </div>
-            <div id="new-post" style="visibility: hidden">
-                <p style="text-align: center;"> CREATE NEW POST: </p>
-                <div class="form">
-                    <textarea class = "mainInput" id="postTitle" placeholder="Post title"></textarea>
-                    <textarea class = "mainInput" id="postAuthor" placeholder="Author"></textarea>
-                    <p>Please write a small abstract:</p>
-                    <textarea class = "abstractInput" id="postAbstract" placeholder="Abstract"></textarea>
-                    <p>Please fill in the post content:</p>
-                    <textarea class = "contentInput" id="postContent" placeholder="Post Content"></textarea>
-                    <p>Please select Post publish date:</p>
-                    <input type="date" id="postDate" name="date" />
-                    <p>Please select Post PDF file:</p>
-                    <input type="file" class="file-select" accept="application/pdf">
+            <div id="adminTools" style="visibility: hidden">
+                <div id="new-post">
+                    <p style="text-align: center;"> CREATE NEW POST: </p>
+                    <div class="form">
+                        <textarea class = "mainInput" id="postTitle" placeholder="Post title"></textarea>
+                        <textarea class = "mainInput" id="postAuthor" placeholder="Author"></textarea>
+                        <p>Please write a small abstract:</p>
+                        <textarea class = "abstractInput" id="postAbstract" placeholder="Abstract"></textarea>
+                        <p>Please fill in the post content:</p>
+                        <textarea class = "contentInput" id="postContent" placeholder="Post Content"></textarea>
+                        <p>Please select Post publish date:</p>
+                        <input type="date" id="postDate" name="date" />
+                        <p>Please select Post PDF file:</p>
+                        <input type="file" class="file-select" accept="application/pdf">
+                    </div>
+                    <div id="list1" class="dropdown-check-list" tabindex="100">
+                        <span class="anchor">Select Tags</span>
+                        <ul id="items" class="items">
+                            <li><input type="checkbox" name="Oil" >Oil </li>
+                            <li><input type="checkbox" name="Gas" >Gas </li>
+                            <li><input type="checkbox" name="Electricity"/>Electricity</li>
+                            <li><input type="checkbox" name="Environment"/>Environment </li>
+                            <li><input type="checkbox" name="RMA"/>RMA </li>
+                            <li><input type="checkbox" name="Marine"/>Marine </li>
+                            <li><input type="checkbox" name="Legislation"/>Legislation </li>
+                            <li><input type="checkbox" name="Conservation"/>Conservation </li>
+                            <li><input type="checkbox" name="Climate Change"/>Climate Change</li>
+                            <li><input type="checkbox" name="Generation"/>Generation</li>
+                            <li><input type="checkbox" name="Distribution"/>Distribution</li>
+                            <li><input type="checkbox" name="Exploration"/>Exploration</li>
+                            <li><input type="checkbox" name="Mining"/>Mining</li>
+                            <li><input type="checkbox" name="Coal"/>Coal</li>
+                            <li><input type="checkbox" name="Geothermal"/>Geothermal</li>
+                            <li><input type="checkbox" name="Wind"/>Wind</li>
+                            <li><input type="checkbox" name="Co-generation"/>Co-generation</li>
+                            <li><input type="checkbox" name="Water"/>Water</li>
+                            <li><input type="checkbox" name="Air"/>Air</li>
+                            <li><input type="checkbox" name="Local Government"/>Local Government</li>
+                            <li><input type="checkbox" name="Agriculture"/>Agriculture</li>
+                            <li><input type="checkbox" name="Select committees"/>Select committees</li>
+                            <li><input type="checkbox" name="Petrol"/>Petrol</li>
+                            <li><input type="checkbox" name="Transport"/>Transport</li>
+                            <li><input type="checkbox" name="Forestry"/>Forestry</li>
+                            <li><input type="checkbox" name="ETS"/>ETS</li>
+                            <li><input type="checkbox" name="Industrial"/>Industrial</li>
+                            <li><input type="checkbox" name="Efficiency"/>Efficiency</li>
+                            <li><input type="checkbox" name="Bio-security"/>Bio-security</li>
+                            <li><input type="checkbox" name="Waste"/>Waste</li>
+                            <li><input type="checkbox" name="Fisheries"/>Fisheries</li>
+                            <li><input type="checkbox" name="Hazardous substance"/>Hazardous substance</li>
+                            <li><input type="checkbox" name="Genetic modification"/>Genetic modification</li>
+                            <li><input type="checkbox" name="Natural hazard"/>Natural hazard</li>
+                        </ul>
+                    </div>
+                    </br>
+                    </br>
+                    <button id="btnAddNewPost" class="btn btn-action">Add Post</button>
                 </div>
-                <div id="list1" class="dropdown-check-list" tabindex="100">
-                    <span class="anchor">Select Tags</span>
-                    <ul id="items" class="items">
-                        <li><input type="checkbox" name="Oil" >Oil </li>
-                        <li><input type="checkbox" name="Gas" >Gas </li>
-                        <li><input type="checkbox" name="Electricity"/>Electricity</li>
-                        <li><input type="checkbox" name="Environment"/>Environment </li>
-                        <li><input type="checkbox" name="RMA"/>RMA </li>
-                        <li><input type="checkbox" name="Marine"/>Marine </li>
-                        <li><input type="checkbox" name="Legislation"/>Legislation </li>
-                        <li><input type="checkbox" name="Conservation"/>Conservation </li>
-                        <li><input type="checkbox" name="Climate Change"/>Climate Change</li>
-                        <li><input type="checkbox" name="Generation"/>Generation</li>
-                        <li><input type="checkbox" name="Distribution"/>Distribution</li>
-                        <li><input type="checkbox" name="Exploration"/>Exploration</li>
-                        <li><input type="checkbox" name="Mining"/>Mining</li>
-                        <li><input type="checkbox" name="Coal"/>Coal</li>
-                        <li><input type="checkbox" name="Geothermal"/>Geothermal</li>
-                        <li><input type="checkbox" name="Wind"/>Wind</li>
-                        <li><input type="checkbox" name="Co-generation"/>Co-generation</li>
-                        <li><input type="checkbox" name="Water"/>Water</li>
-                        <li><input type="checkbox" name="Air"/>Air</li>
-                        <li><input type="checkbox" name="Local Government"/>Local Government</li>
-                        <li><input type="checkbox" name="Agriculture"/>Agriculture</li>
-                        <li><input type="checkbox" name="Select committees"/>Select committees</li>
-                        <li><input type="checkbox" name="Petrol"/>Petrol</li>
-                        <li><input type="checkbox" name="Transport"/>Transport</li>
-                        <li><input type="checkbox" name="Forestry"/>Forestry</li>
-                        <li><input type="checkbox" name="ETS"/>ETS</li>
-                        <li><input type="checkbox" name="Industrial"/>Industrial</li>
-                        <li><input type="checkbox" name="Efficiency"/>Efficiency</li>
-                        <li><input type="checkbox" name="Bio-security"/>Bio-security</li>
-                        <li><input type="checkbox" name="Waste"/>Waste</li>
-                        <li><input type="checkbox" name="Fisheries"/>Fisheries</li>
-                        <li><input type="checkbox" name="Hazardous substance"/>Hazardous substance</li>
-                        <li><input type="checkbox" name="Genetic modification"/>Genetic modification</li>
-                        <li><input type="checkbox" name="Natural hazard"/>Natural hazard</li>
-                    </ul>
+                <br>
+                <div id="new-user">
+                    <p style="text-align: center;"> CREATE NEW USER: </p>
+                    <textarea class = "mainInput" id="userName" placeholder="Email"></textarea>
+                    <textarea class = "mainInput" id="userPassword" placeholder="Password"></textarea>
+                    <textarea class = "mainInput" id="userAllocation" placeholder="User Allocation"></textarea>
+                    <p>Subscription expiry date:</p>
+                    <input type="date" id="subDate" />
+                    <br>
+                    Admin?
+                    <input  id="isAdmin" type="checkbox" />
+                    <br>
+                    <br>
+                    <button id="btnAddNewUser" class="btn btn-action">Add User</button>
                 </div>
-                </br>
-                <button id="btnAddNewPost" class="btn btn-action">Add Post</button>
             </div>
         </div>
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">

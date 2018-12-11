@@ -1,14 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-/*Top banner properties on each portal page*/
-.banner {
-    width: 97%;
-    margin: 20px;
-    display:inline-block;
-    background-color: #f1f1f1;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
-    border-radius:3px 3px 3px 3px;
-}
 
 .mainInput {
     height: 50px;
@@ -95,7 +86,6 @@ html {
     text-transform: uppercase;
     outline: 0;
     background: #3db89b;
-    width: 15%;
     color: #FFFFFF;
     font-size: 14px;
     -webkit-transition: all 0.3 ease;
@@ -122,9 +112,12 @@ li a {
     text-decoration: none;
 }
 
+ul#tags {
+    display:table;
+}
+
 ul#tags li {
-    display:inline;
-    float: left;
+    display:table-cell;
 }
 
 #tagsBar {
@@ -140,9 +133,9 @@ li a:hover {
 }
 
 div#main{
-    margin:5px auto;
+    margin:5px 0px 5px 5px;
     display: inline-block;
-    width: 75%;
+    width: 65%;
     height:100%;
 }
 
@@ -154,17 +147,24 @@ div#paymentComplete{
 div#memberMain{
     margin:5px 0px 5px 5px;
     display: inline-block;
-    width: 75%;
+    width: 65%;
+    height:100%;
+}
+
+div#newSub{
+    margin:5px 0px 5px 5px;
+    display: inline-block;
+    width: 55%;
     height:100%;
 }
 
 div#posts{
     margin: 10px auto;
-    width: 75%;
+    width: 80%;
     height:100%;
 }
 
-div#new-post{
+div#adminTools{
     margin: 10px auto;
     width: 75%;
     height:100%;
@@ -251,10 +251,6 @@ button:hover {
     background: rgba(25, 244, 199, 0.55);
 }
 
-#logo {
-    float: left;
-    width: 25%;
-}
 
 .dropdown-check-list {
     display: inline-block;
@@ -295,6 +291,24 @@ button:hover {
     list-style: none;
 }
 
-.search-container{
-    display: inline;
+#logo {
+    margin:auto;
+    width: fit-content;
 }
+
+.search-container{
+    float: right;
+    width: auto;
+    height: fit-content;
+}
+
+.banner {
+    width: 97%;
+    margin: 10px 20px 5px 20px;
+    display: inline-flex;
+    background-color: #f1f1f1;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+    border-radius:3px 3px 3px 3px;
+}
+
+

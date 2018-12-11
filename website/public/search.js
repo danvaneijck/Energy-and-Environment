@@ -24,6 +24,8 @@ var userInfo;
         window.location.href = 'search.html?search=' + searchInput.value;
     });
 
+    let nav = document.getElementById("navigationBar");
+
     firebase.auth().onAuthStateChanged(u => {
         if(u != null) {
             console.log('logged in');
@@ -42,6 +44,16 @@ var userInfo;
             dbUserRef.once('value').then(function(snap) {
                 userInfo = snap.val();
             });
+
+            nav.innerHTML = "<nav>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"home.html\">Home</a></li>\n" +
+                "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
+                "                    <li><a href=\"about.html\">About</a></li>\n" +
+                "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
+                "                    <li><a href=\"membership.html\">Membership Info</a></li>\n" +
+                "                </ul>\n" +
+                "            </nav>";
         }
         else{
             console.log('not logged in');
@@ -50,6 +62,16 @@ var userInfo;
             btnLogin.addEventListener('click', e => {
                 window.location.href = 'index.html';
             });
+
+            nav.innerHTML = "<nav>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"home.html\">Home</a></li>\n" +
+                "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
+                "                    <li><a href=\"about.html\">About</a></li>\n" +
+                "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
+                "                    <li style='background-color: red'><a style='color: white' href=\"subscribe.html\">Subscribe</a></li>\n" +
+                "                </ul>\n" +
+                "            </nav>";
         }
     });
 

@@ -6,6 +6,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="home_styling.css">
 </head>
@@ -13,6 +14,7 @@
 <div id="logo">
     <img src="assets/logo.jpg"  />
 </div>
+
 <div id="tagsBar" class="section">
     <nav>
         <ul id="tags">
@@ -29,7 +31,7 @@
 </div>
 
 
-<div class="home-page">
+<div class="subscribe-page">
     <div id="content">
         <div class="search-container">
             <input id="searchInput" type="text" placeholder="Search.." name="search">
@@ -45,17 +47,41 @@
                     <li><a href="archives.html">Archives</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="membership.html">Membership Info</a></li>
+                    <li style='background-color: red'><a style='color: white' href="subscribe.html">Subscribe</a></li>
                 </ul>
             </nav>
         </div>
         <!--Main area for page-->
-        <div id="main">
-           <div id="postContent"></div>
+        <div id="newSub">
+            <div  id="newPayment" style="padding: 10px;" class="section">
+                <div id="new-user">
+                    <h3>Make a new subscriber account!</h3>
+                    <textarea class = "mainInput" id="userName" placeholder="Email"></textarea>
+                    <textarea class = "mainInput" id="userPassword" placeholder="Password"></textarea>
+                </div>
+                <div>
+                    <h5>Payment options:</h5>
+                    1 YEAR subscription
+                </div>
+                <div>
+                    <h5>Single User Subscription:</h5>
+                    <b>$450</b> up to 1 user
+                    <h5>Multiple-User Subscription:</h5>
+                    <b>$1310</b> up to 5 users<br>
+                    <b>$2310</b> up to 10 users<br>
+                    <b>$3310</b> up to 20 users<br>
+                    <b>$4310</b> up to 50 users<br>
+                    <p>51 plus - by quotation </p>
+                    <p>All figures include a credit card surcharge and GST</p>
+                    <p>NZ Energy & Environment Business Alert is sent to you each week in pdf format via email for distribution to your staff & branches or to be placed on your intranet. If you prefer other delivery formats this can be arranged.
+                    </p>
+                </div>
+                <button id="btnAddNewUser" class="btn btn-action">REGISTER</button>
+            </div>
         </div>
     </div>
-
 </div>
-<script src="post.js"></script>
+
+<script src="subscribe.js"></script>
 </body>
 </html>

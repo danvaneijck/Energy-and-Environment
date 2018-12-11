@@ -2,6 +2,7 @@ var file;
 postsList = [];
 var user = null;
 var userInfo;
+var secondaryApp;
 
 (function() {
     // Initialize Firebase
@@ -15,6 +16,13 @@ var userInfo;
     };
     firebase.initializeApp(config);
 
+    let config2 = {
+        apiKey: "AIzaSyCuDUyO849H6_NCnoWwiw-f1fWg5M-Rjn8",
+        authDomain: "energy-and-environment.firebaseapp.com",
+        databaseURL: "https://energy-and-environment.firebaseio.com"
+    };
+    secondaryApp = firebase.initializeApp(config2, "Secondary");
+
     //Add log out events
     const btnLogout = document.getElementById('btnLogout');
     const btnLogin = document.getElementById('btnLogin');
@@ -23,6 +31,8 @@ var userInfo;
     searchBtn.addEventListener('click', e => {
         window.location.href = 'search.html?search=' + searchInput.value;
     });
+
+    let nav = document.getElementById("navigationBar");
 
     firebase.auth().onAuthStateChanged(u => {
         if(u != null) {
@@ -42,6 +52,16 @@ var userInfo;
             dbUserRef.once('value').then(function(snap) {
                 userInfo = snap.val();
             });
+
+            nav.innerHTML = "<nav>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"home.html\">Home</a></li>\n" +
+                "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
+                "                    <li><a href=\"about.html\">About</a></li>\n" +
+                "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
+                "                    <li><a href=\"membership.html\">Membership Info</a></li>\n" +
+                "                </ul>\n" +
+                "            </nav>";
         }
         else{
             console.log('not logged in');
@@ -50,12 +70,22 @@ var userInfo;
             btnLogin.addEventListener('click', e => {
                 window.location.href = 'index.html';
             });
+
+            nav.innerHTML = "<nav>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"home.html\">Home</a></li>\n" +
+                "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
+                "                    <li><a href=\"about.html\">About</a></li>\n" +
+                "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
+                "                    <li style='background-color: red'><a style='color: white' href=\"subscribe.html\">Subscribe</a></li>\n" +
+                "                </ul>\n" +
+                "            </nav>";
         }
     });
 
     getPostsFromDB();
 
-    let elem = document.getElementById("new-post");
+    let postDiv = document.getElementById("adminTools");
     let admin = false;
     firebase.database().ref().child('admins').once("value", function(snapshot) {
         snapshot.forEach(function(child) {
@@ -67,10 +97,10 @@ var userInfo;
             }
         });
         if(!admin){
-            elem.parentNode.removeChild(elem);
+            postDiv.parentNode.removeChild(postDiv);
         }
         else{
-            elem.style.visibility = "visible";
+            postDiv.style.visibility = "visible";
         }
     });
     document.querySelector('.file-select').addEventListener('change', handleFileUploadChange);
@@ -175,15 +205,14 @@ function selectChanged() {
     for(x in this.postsList){
         var newDiv = document.createElement("div");
         var html = ' <div  class="post"> ';
-        html += ' <h2>' + postsList[x].title + ' </h2>';
-        html += ' <h3> Author: ' + postsList[x].author + ' </h3>';
+        html += ' <h3>' + postsList[x].title + ' </h3>';
         html += ' <h4> Date: ' + postsList[x].date + ' </h4>';
-        html += ' <span style=\"white-space: pre-line\"><b>Abstract:</b> '+postsList[x].abstract+'\n\n</span>';
+        html += ' <span style=\"white-space: pre-line\">'+postsList[x].abstract+'\n\n</span>';
         html += ' <p><b>Tags:</b> ' + postsList[x].tags +'</p>';
         html += ' <button id=btnSeeMore'+postsList[x].date+"/"+postsList[x].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
         html += ' </div>';
 
-        newDiv.style.paddingBottom = "45px";
+        newDiv.style.paddingBottom = "20px";
         newDiv.innerHTML = html;
         currentDiv.appendChild(newDiv);
     }
@@ -220,7 +249,7 @@ function readMore(id){
             firebase.auth().signInWithEmailAndPassword(data.email, data.password)
                 .then(function(authData) {
                     auth = authData;
-                    $('#messageModalLabel').html(spanText('Success!', ['center', 'success']))
+                    $('#messageModalLabel').html(spanText('Success!', ['center', 'success']));
                     $('#loginModal').modal('hide');
                     window.location.href = "post.html" + queryString;
                 })
@@ -228,6 +257,31 @@ function readMore(id){
                     console.log("Login Failed!", error);
                     $('#messageModalLabel').html(spanText('ERROR: '+error.code, ['danger']))
                 });
+        }
+    });
+}
+
+const btnAddNewUser = document.getElementById('btnAddNewUser');
+btnAddNewUser.addEventListener('click', createUser);
+
+function createUser(){
+    let username = userName.value;
+    let password = userPassword.value;
+    let sub = new Date(subDate.value);
+    let userAll = userAllocation.value;
+
+    secondaryApp.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
+        var errorMessage = error.message;
+        window.alert(errorMessage);
+    }).then((x) => {
+        console.log(x.user.uid);
+        firebase.database().ref('members').child(x.user.uid).set({
+            email: username,
+            validDate : sub.toLocaleString(),
+            users: userAll
+        });
+        if ($('#isAdmin').is(":checked")) {
+            firebase.database().ref('admins').child(x.user.uid).set(true);
         }
     });
 }

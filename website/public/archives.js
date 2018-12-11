@@ -23,8 +23,9 @@ var userInfo;
         window.location.href = 'search.html?search=' + searchInput.value;
     });
 
-    firebase.auth().onAuthStateChanged(u => {
+    let nav = document.getElementById("navigationBar");
 
+    firebase.auth().onAuthStateChanged(u => {
         if(u != null) {
             console.log('logged in');
             btnLogin.parentNode.removeChild(btnLogin);
@@ -42,6 +43,16 @@ var userInfo;
             dbUserRef.once('value').then(function(snap) {
                 userInfo = snap.val();
             });
+
+            nav.innerHTML = "<nav>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"home.html\">Home</a></li>\n" +
+                "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
+                "                    <li><a href=\"about.html\">About</a></li>\n" +
+                "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
+                "                    <li><a href=\"membership.html\">Membership Info</a></li>\n" +
+                "                </ul>\n" +
+                "            </nav>";
         }
         else{
             console.log('not logged in');
@@ -50,6 +61,15 @@ var userInfo;
             btnLogin.addEventListener('click', e => {
                 window.location.href = 'index.html';
             });
+            nav.innerHTML = "<nav>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"home.html\">Home</a></li>\n" +
+                "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
+                "                    <li><a href=\"about.html\">About</a></li>\n" +
+                "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
+                "                    <li style='background-color: red'><a style='color: white' href=\"subscribe.html\">Subscribe</a></li>\n" +
+                "                </ul>\n" +
+                "            </nav>";
         }
     });
 
@@ -93,10 +113,9 @@ function selectChanged(){
         var dateHTML = '<button class="collapsible">' + dates[i][0].date + '</button>';
         dateHTML += ' <div  class="content"> ';
         for(j in this.dates[i]){
-            dateHTML += ' <h3> Title: ' + dates[i][j].title + ' </h3>';
-            dateHTML += ' <h4> Author: ' + dates[i][j].author + ' </h4>';
+            dateHTML += ' <h4>' + dates[i][j].title + ' </h4>';
             dateHTML += ' <h5> Date: ' + dates[i][j].date + ' </h5>';
-            dateHTML += ' <p> <b>Abstract: </b>' + dates[i][j].abstract + ' </p>';
+            dateHTML += ' <p>' + dates[i][j].abstract + ' </p>';
             dateHTML += ' <p><b>Tags:</b> ' + dates[i][j].tags +'</p>';
             dateHTML += ' <button id=btnSeeMore'+dates[i][j].date+"/"+dates[i][j].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
 

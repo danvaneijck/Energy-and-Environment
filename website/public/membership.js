@@ -24,6 +24,8 @@ var userInfo;
         window.location.href = 'search.html?search=' + searchInput.value;
     });
 
+    let nav = document.getElementById("navigationBar");
+
     firebase.auth().onAuthStateChanged(u => {
         if(u != null) {
             console.log('logged in');
@@ -58,6 +60,15 @@ var userInfo;
                     div.innerHTML += "<p style='color: green'><b>Your subscription is currently valid!</b></p>";
                 }
             });
+            nav.innerHTML = "<nav>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"home.html\">Home</a></li>\n" +
+                "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
+                "                    <li><a href=\"about.html\">About</a></li>\n" +
+                "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
+                "                    <li><a href=\"membership.html\">Membership Info</a></li>\n" +
+                "                </ul>\n" +
+                "            </nav>";
         }
         else{
             window.location = 'index.html';
@@ -71,7 +82,7 @@ var userInfo;
     // Render the PayPal button
     paypal.Button.render({
         // Set your environment
-        env: 'sandbox', // sandbox | production
+        env: 'production', // sandbox | production
 
         // Specify the style of the button
         style: {
@@ -125,10 +136,10 @@ var userInfo;
                 .then(function () {
                     window.alert('Payment Complete!');
                     let users = 1;
-                    if(amount == 1095) users = 5;
-                    if(amount == 2095) users = 10;
-                    if(amount == 3095) users = 20;
-                    if(amount == 3095) users = 50;
+                    if(amount == 1310) users = 5;
+                    if(amount == 2310) users = 10;
+                    if(amount == 3310) users = 20;
+                    if(amount == 4310) users = 50;
                     updateUserDetails(users);
                     window.location.href = 'paymentComplete.html?users=' + users;
                 });

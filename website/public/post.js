@@ -57,7 +57,7 @@ async function showPost(id) {
         "<h2>"+postInfo.title+"</h2>" +
         "<h3>Author: "+postInfo.author+"</h3>" +
         "<span style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
-        "</br>" +
+        "<br><br>" +
         ' <p><b>Tags:</b> ' + postInfo.tags +'</p>' +
         "<a href="+postInfo.fileURL+" download>Download full article</a>" +
         "</div>"
