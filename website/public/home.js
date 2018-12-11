@@ -179,7 +179,7 @@ async function uploadPost(){
 function getPostsFromDB(){
     const dbPostsRef = firebase.database().ref('posts/');
     this.postsList = [];
-    dbPostsRef.orderByValue().limitToLast(5).once('value').then(function(snap) {
+    dbPostsRef.orderByValue().limitToLast(10).once('value').then(function(snap) {
         snap.forEach(function(date) {
             date.forEach(function (post){
                 postsList.push({

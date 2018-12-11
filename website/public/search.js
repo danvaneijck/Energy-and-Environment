@@ -125,15 +125,14 @@ function selectChanged() {
     for(x in this.postsList){
         var newDiv = document.createElement("div");
         var html = ' <div  class="post"> ';
-        html += ' <h2>' + postsList[x].title + ' </h2>';
-        html += ' <h3> Author: ' + postsList[x].author + ' </h3>';
+        html += ' <h3>' + postsList[x].title + ' </h3>';
         html += ' <h4> Date: ' + postsList[x].date + ' </h4>';
-        html += ' <span style=\"white-space: pre-line\"><b>Abstract:</b> '+postsList[x].abstract+'\n\n</span>';
+        html += ' <span style=\"white-space: pre-line\">'+postsList[x].abstract+'\n\n</span>';
         html += ' <p><b>Tags:</b> ' + postsList[x].tags +'</p>';
         html += ' <button id=btnSeeMore'+postsList[x].date+"/"+postsList[x].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
         html += ' </div>';
 
-        newDiv.style.paddingBottom = "45px";
+        newDiv.style.paddingBottom = "20px";
         newDiv.innerHTML = html;
         currentDiv.appendChild(newDiv);
     }
