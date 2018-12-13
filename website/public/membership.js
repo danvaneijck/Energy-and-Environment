@@ -75,10 +75,7 @@ var userInfo;
         }
     });
 
-    let cost = document.querySelector('.cost:checked').value;
-    let time = document.querySelector('.time:checked').value;
-    var amount = cost * time;
-    console.log(amount.toString())
+
     // Render the PayPal button
     paypal.Button.render({
         // Set your environment
@@ -117,6 +114,10 @@ var userInfo;
         },
 
         payment: function (data, actions) {
+            let cost = document.querySelector('.cost:checked').value;
+            let time = document.querySelector('.time:checked').value;
+            var amount = cost * time;
+            console.log(amount.toString())
             return actions.payment.create({
                 payment: {
                     transactions: [
