@@ -1,3 +1,6 @@
+var user = null;
+var userInfo;
+
 (function() {
     // Initialize Firebase
     var config = {
@@ -31,16 +34,30 @@
                     console.error('Sign Out Error', error);
                 });
             });
+            const dbUserRef = firebase.database().ref('members').child(user.uid);
+            dbUserRef.once('value').then(function(snap) {
+                userInfo = snap.val();
+            }).then(() =>{
+                let validDate = new Date(userInfo.validDate);
+                let currentDate = new Date();
+                if(currentDate.getTime() > validDate.getTime()){
+                    window.alert("Your subscription has expired! Please renew");
+                    window.location = "membership.html";
+                }
+                else{
+                    let id = window.location.hash.substring(1);
+                    showPost(id);
+                }
+            });
         }
         else{
             window.location.href = 'index.html';
         }
     });
 
-    var id = window.location.hash.substring(1);
-    console.log(id);
 
-    showPost(id);
+
+
 }());
 
 async function showPost(id) {

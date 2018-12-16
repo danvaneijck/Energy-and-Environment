@@ -58,7 +58,7 @@
                 "                    <li><a href=\"archives.html\">Archives</a></li>\n" +
                 "                    <li><a href=\"about.html\">About</a></li>\n" +
                 "                    <li><a href=\"contact.html\">Contact</a></li>\n" +
-                "                    <li style='background-color: red'><a style='color: white' href=\"subscribe.html\">Subscribe</a></li>\n" +
+                "                    <li style='background-color: #fa4e3d'><a style='color: white' href=\"subscribe.html\">Subscribe</a></li>\n" +
                 "                </ul>\n" +
                 "            </nav>";
         }

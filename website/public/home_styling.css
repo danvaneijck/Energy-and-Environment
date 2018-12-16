@@ -63,8 +63,8 @@
 body {
     width: 100%;
     height: 89%;
-    background: #2db89d; /* fallback for old browsers */
-    background: linear-gradient(to right, #3fb898, #2db495);
+    background: #80bdc1; /* fallback for old browsers */
+    //background: linear-gradient(to right, #A7C1BF, #A7C1BF);
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -135,7 +135,7 @@ li a:hover {
 div#main{
     margin:5px 0px 5px 5px;
     display: inline-block;
-    width: 65%;
+    width: 80%;
     height:100%;
 }
 
@@ -160,13 +160,12 @@ div#newSub{
 
 div#posts{
     margin: 10px auto;
-    width: 80%;
-    height:100%;
+    width: 100%;
 }
 
 div#adminTools{
     margin: 10px auto;
-    width: 75%;
+    width: 100%;
     height:100%;
 }
 
@@ -184,7 +183,7 @@ div#content{
 }
 
 div#postContent{
-    width:75%;
+    width:100%;
     margin: 10px auto;
     padding: 2px 2px 2px 2px;
 }
@@ -237,7 +236,7 @@ button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: #146254;
+    background: #157567;
     width: 25%;
     border: 0;
     padding: 10px;
