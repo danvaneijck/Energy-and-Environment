@@ -167,7 +167,7 @@ async function uploadPost(){
                 content: content,
                 tags: tags.toString(),
                 date: date,
-                fileURL : url
+                fileURL : file.name
             });
         })
         .catch(console.error);
@@ -179,10 +179,11 @@ async function uploadPost(){
 function getPostsFromDB(){
     const dbPostsRef = firebase.database().ref('posts/');
     this.postsList = [];
-    dbPostsRef.orderByValue().limitToLast(10).once('value').then(function(snap) {
+    dbPostsRef.orderByValue().once('value').then(function(snap) {
         snap.forEach(function(date) {
+            let posts = [];
             date.forEach(function (post){
-                postsList.push({
+                posts.push({
                     id: post.key,
                     title : post.val().title,
                     author : post.val().author,
@@ -191,8 +192,13 @@ function getPostsFromDB(){
                     tags: post.val().tags,
                     fileURL : post.val().fileURL,
                     date : post.val().date
-                })
+                });
+
             });
+            posts.reverse();
+            for(x in posts){
+                postsList.push(posts[x]);
+            }
         });
         this.postsList.reverse();
         selectChanged();
@@ -202,7 +208,7 @@ function getPostsFromDB(){
 function selectChanged() {
     var currentDiv = document.getElementById("posts");
     currentDiv.innerHTML = "";
-    for(x in this.postsList){
+    for(let x = 0; x < 10; x++){
         var newDiv = document.createElement("div");
         var html = ' <div  class="post"> ';
         html += ' <h3>' + postsList[x].title + ' </h3>';

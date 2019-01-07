@@ -51,7 +51,7 @@
 .post {
     border-radius:3px 3px 3px 3px;
     background-color: #f1f1f1;
-    padding: 10px;
+    padding: 8px;
 }
 
 .postExpand {
@@ -65,7 +65,7 @@ body {
     height: 89%;
     background: #80bdc1; /* fallback for old browsers */
     //background: linear-gradient(to right, #A7C1BF, #A7C1BF);
-    font-family: "Roboto", sans-serif;
+    font-family: "Calibri", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 10px;

@@ -84,7 +84,7 @@ function spanText(textStr, textClasses) {
 function getDates(){
     const dbPostsRef = firebase.database().ref('posts/');
     this.dates = [];
-    dbPostsRef.once('value').then(function(snap) {
+    dbPostsRef.orderByValue().once('value').then(function(snap) {
         snap.forEach(function(date) {
             let postsOnDate = [];
             date.forEach(function (post){

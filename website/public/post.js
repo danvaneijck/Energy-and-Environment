@@ -55,9 +55,6 @@ var userInfo;
         }
     });
 
-
-
-
 }());
 
 async function showPost(id) {
@@ -68,14 +65,19 @@ async function showPost(id) {
     });
 
     console.log(postInfo);
-    let currentDiv = document.getElementById("postContent");
-    currentDiv.innerHTML =
-        "<div  class=\"postExpand\">" +
-        "<h2>"+postInfo.title+"</h2>" +
-        "<h3>Author: "+postInfo.author+"</h3>" +
-        "<span style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
-        "<br><br>" +
-        ' <p><b>Tags:</b> ' + postInfo.tags +'</p>' +
-        "<a href="+postInfo.fileURL+" download>Download full article</a>" +
-        "</div>"
+
+    let ref = firebase.storage().ref("posts/"+postInfo.fileURL);
+    ref.getDownloadURL().then(function(url) {
+        let currentDiv = document.getElementById("postContent");
+        currentDiv.innerHTML =
+            "<div  class=\"postExpand\">" +
+            "<h2>"+postInfo.title+"</h2>" +
+            "<h3>Author: "+postInfo.author+"</h3>" +
+            "<span style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
+            "<br><br>" +
+            ' <p><b>Tags:</b> ' + postInfo.tags +'</p>' +
+            "<a href="+url+" download>Download full article</a>" +
+            "</div>";
+    });
+
 }
