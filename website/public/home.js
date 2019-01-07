@@ -155,24 +155,39 @@ async function uploadPost(){
     let date = postDate.value;
     let timestamp = new Date().getTime();
 
-    //upload file
-    await firebase.storage().ref().child('posts/'+file.name).put(file)
-        .then(snapshot => snapshot.ref.getDownloadURL())
-        .then((url) => {
-            const dbPostsRef = firebase.database().ref('posts').child(date).child(timestamp);
-            dbPostsRef.set({
-                title : title,
-                author : author,
-                abstract : abstract,
-                content: content,
-                tags: tags.toString(),
-                date: date,
-                fileURL : file.name
-            });
-        })
-        .catch(console.error);
+    if(file == null){
+        const dbPostsRef = firebase.database().ref('posts').child(date).child(timestamp);
+        dbPostsRef.set({
+            title : title,
+            author : author,
+            abstract : abstract,
+            content: content,
+            tags: tags.toString(),
+            date: date,
+            fileURL : "null"
+        });
+        window.alert('Successfully uploaded post without PDF');
+    }
+    else{
+        //upload file
+        await firebase.storage().ref().child('posts/'+file.name).put(file)
+            .then(snapshot => snapshot.ref.getDownloadURL())
+            .then((url) => {
+                const dbPostsRef = firebase.database().ref('posts').child(date).child(timestamp);
+                dbPostsRef.set({
+                    title : title,
+                    author : author,
+                    abstract : abstract,
+                    content: content,
+                    tags: tags.toString(),
+                    date: date,
+                    fileURL : file.name
+                });
+            })
+            .catch(console.error);
 
-    window.alert('Successful post created!');
+        window.alert('Successfully uploaded post with PDF');
+    }
     location = location;
 }
 
@@ -289,5 +304,7 @@ function createUser(){
         if ($('#isAdmin').is(":checked")) {
             firebase.database().ref('admins').child(x.user.uid).set(true);
         }
+        alert("New account created!");
+        location = location;
     });
 }

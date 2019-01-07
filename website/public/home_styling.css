@@ -1,9 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-
 .mainInput {
     height: 50px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Calibri", sans-serif;
     outline: 0;
     background: #f2f2f2;
     width: 100%;
@@ -16,7 +13,7 @@
 
 .abstractInput {
     height: 150px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Calibri", sans-serif;
     outline: 0;
     background: #f2f2f2;
     width: 100%;
@@ -30,7 +27,7 @@
 
 .contentInput {
     height: 400px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Calibri", sans-serif;
     outline: 0;
     background: #f2f2f2;
     width: 100%;
@@ -63,7 +60,7 @@
 body {
     width: 100%;
     height: 89%;
-    background: #80bdc1; /* fallback for old browsers */
+    background: #A7C1BF; /* fallback for old browsers */
     //background: linear-gradient(to right, #A7C1BF, #A7C1BF);
     font-family: "Calibri", sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -82,7 +79,7 @@ html {
 
 /*Log out button properties*/
 .banner button {
-    font-family: "Roboto", sans-serif;
+    font-family: "Calibri", sans-serif;
     text-transform: uppercase;
     outline: 0;
     background: #3db89b;
@@ -233,7 +230,7 @@ div#archiveDates{
 }
 
 button {
-    font-family: "Roboto", sans-serif;
+    font-family: "Calibri", sans-serif;
     text-transform: uppercase;
     outline: 0;
     background: #157567;

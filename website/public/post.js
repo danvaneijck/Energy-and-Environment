@@ -49,13 +49,37 @@ var userInfo;
                     showPost(id);
                 }
             });
+            let editDiv = document.getElementById("editPost");
+            let admin = false;
+            firebase.database().ref().child('admins').once("value", function(snapshot) {
+                snapshot.forEach(function(child) {
+                    if(user == null){
+                        admin = false;
+                    }
+                    else if(child.key === user.uid){
+                        admin = true;
+                    }
+                });
+                if(!admin){
+                    editDiv.parentNode.removeChild(editDiv);
+                }
+                else{
+                    editDiv.style.visibility = "visible";
+                }
+            });
         }
         else{
             window.location.href = 'index.html';
         }
     });
 
+
+
 }());
+
+function enableEditing(){
+    document.getElementById("content").disabled = false;
+}
 
 async function showPost(id) {
     let postInfo = null;
@@ -66,18 +90,33 @@ async function showPost(id) {
 
     console.log(postInfo);
 
-    let ref = firebase.storage().ref("posts/"+postInfo.fileURL);
-    ref.getDownloadURL().then(function(url) {
+    if(postInfo.fileURL == "null"){
         let currentDiv = document.getElementById("postContent");
         currentDiv.innerHTML =
             "<div  class=\"postExpand\">" +
             "<h2>"+postInfo.title+"</h2>" +
-            "<h3>Author: "+postInfo.author+"</h3>" +
+            "<h5>Author: "+postInfo.author+"</h5>" +
+            "<h5> Date: " + postInfo.date + " </h5>"+
             "<span style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
             "<br><br>" +
             ' <p><b>Tags:</b> ' + postInfo.tags +'</p>' +
-            "<a href="+url+" download>Download full article</a>" +
             "</div>";
-    });
+    }
+    else{
+        let ref = firebase.storage().ref("posts/"+postInfo.fileURL);
+        ref.getDownloadURL().then(function(url) {
+            let currentDiv = document.getElementById("postContent");
+            currentDiv.innerHTML =
+                "<div  class=\"postExpand\">" +
+                "<h2>"+postInfo.title+"</h2>" +
+                "<h5>Author: "+postInfo.author+"</h5>" +
+                "<h5> Date: " + postInfo.date + " </h5>"+
+                "<span id='content' style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
+                "<br><br>" +
+                ' <p><b>Tags:</b> ' + postInfo.tags +'</p>' +
+                "<a href="+url+" download>Download full bulletin</a>" +
+                "</div>";
+        });
+    }
 
 }
