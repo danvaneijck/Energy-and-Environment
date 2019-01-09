@@ -141,6 +141,23 @@ div#paymentComplete{
     width: 50%;
 }
 
+div#contact{
+    margin:5px 0px 5px 5px;
+    display: inline-block;
+    width: 65%;
+    height:100%;
+    padding: 10px;
+}
+
+div#about{
+    margin:5px 0px 5px 5px;
+    display: inline-block;
+    width: 65%;
+    height:100%;
+    padding: 10px;
+}
+
+
 div#memberMain{
     margin:5px 0px 5px 5px;
     display: inline-block;
@@ -186,8 +203,7 @@ div#postContent{
 }
 
 div#archiveDates{
-    width:75%;
-    margin: 10px auto;
+    width:80%;
     padding: 2px 2px 2px 2px;
 }
 
