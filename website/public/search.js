@@ -1,6 +1,7 @@
-var postsList = [];
-var user = null;
-var userInfo;
+let postsList = [];
+let user = null;
+let userInfo;
+
 
 (function() {
     // Initialize Firebase
@@ -76,7 +77,6 @@ var userInfo;
     });
 
     getPostsFromDB();
-
 }());
 
 function spanText(textStr, textClasses) {
@@ -85,23 +85,31 @@ function spanText(textStr, textClasses) {
 }
 
 function getPostsFromDB(){
-    let myStr = parent.document.URL.substring(parent.document.URL.indexOf('?')+8, parent.document.URL.length).split("%20").toString();
-    let terms = myStr.replace(/,/g, ' ').split(" ").filter(Boolean);
-    let searchTerms = terms.join('|').toLowerCase().split('|');
-    console.log(searchTerms);
+    let myStr = parent.document.URL.substring(parent.document.URL.indexOf('?')+8, parent.document.URL.length).toString();
+    myStr = myStr.replace(/%20/g," ");
 
-    const dbPostsRef = firebase.database().ref('posts/');
     this.postsList = [];
-    dbPostsRef.orderByValue().limitToLast(3).once('value').then(function(snap) {
+    this.matchPostTitle(myStr).then(() => {
+        if(this.postsList.length === 0){
+            this.matchKeyWords(myStr).then(() => {
+                this.selectChanged();
+            });
+        }
+        else{
+            this.selectChanged();
+        }
+    });
+}
+
+async function matchPostTitle(searchString) {
+    searchString = searchString.toLowerCase();
+    const dbPostsRef = firebase.database().ref('posts/');
+    await dbPostsRef.once('value').then(function(snap) {
         snap.forEach(function(date) {
             date.forEach(function (post){
-                let tags = post.val().tags.toString().split(",").toString();
-                tags = tags.replace(/,/g, ' ').split(" ").filter(Boolean);
-                let title = post.val().title.toString().split(",").toString();
-                title = title.replace(/,/g, ' ').split(" ").filter(Boolean);
-                console.log(title)
-                if(tags.some(r=> searchTerms.includes(r.toLowerCase())) || title.some(r=> searchTerms.includes(r.toLowerCase()))){
-                    postsList.push({
+                let title = post.val().title.toString().toLowerCase();
+                if(String(searchString.trim()).valueOf() === String(title.trim()).valueOf()){
+                    this.postsList.push({
                         id: post.key,
                         title : post.val().title,
                         author : post.val().author,
@@ -114,22 +122,62 @@ function getPostsFromDB(){
                 }
             });
         });
-        this.postsList.reverse();
-        selectChanged();
     });
 }
 
+async function matchKeyWords(searchString){
+    searchString = this.removeStopWords(searchString).toLowerCase();
+    let searchTerms = searchString.split(" ").filter(Boolean);
+    const dbPostsRef = firebase.database().ref('posts/');
+    await dbPostsRef.once('value').then(function(snap) {
+        snap.forEach(function(date) {
+            date.forEach(function (post){
+                let tags = post.val().tags.toString().split(",").toString();
+                tags = tags.replace(/,/g, ' ').split(" ").filter(Boolean);
+                let title = post.val().title.toString().split(",").toString();
+                title = title.replace(/,/g, ' ').split(" ").filter(Boolean);
+                if(tags.some(r=> searchTerms.includes(r.toLowerCase())) || title.some(r=> searchTerms.includes(r.toLowerCase()))){
+                    this.postsList.push({
+                        id: post.key,
+                        title : post.val().title,
+                        author : post.val().author,
+                        abstract : post.val().abstract,
+                        content: post.val().content,
+                        tags: post.val().tags,
+                        fileURL : post.val().fileURL,
+                        date : post.val().date
+                    })
+                }
+            });
+        });
+    });
+}
+
+function removeStopWords(str) {
+    let stopWords = ['i','me','my','myself','we','our','ours','ourselves','you','your','yours','yourself','yourselves','he','him','his','himself','she','her','hers','herself','it','its','itself','they','them','their','theirs','themselves','what','which','who','whom','this','that','these','those','am','is','are','was','were','be','been','being','have','has','had','having','do','does','did','doing','a','an','the','and','but','if','or','because','as','until','while','of','at','by','for','with','about','against','between','into','through','during','before','after','above','below','to','from','up','down','in','out','on','off','over','under','again','further','then','once','here','there','when','where','why','how','all','any','both','each','few','more','most','other','some','such','no','nor','not','only','own','same','so','than','too','very','s','t','can','will','just','don','should','now'];
+    let res = [];
+    let words = str.split(' ');
+    for(let i = 0; i < words.length; i++) {
+        let word_clean = words[i].split(".").join("");
+        if(!stopWords.includes(word_clean)) {
+            res.push(word_clean);
+        }
+    }
+    return(res.join(' '))
+}
+
 function selectChanged() {
+    this.postsList.reverse();
     var currentDiv = document.getElementById("posts");
     currentDiv.innerHTML = "";
-    for(x in this.postsList){
+    for(let x in this.postsList){
         var newDiv = document.createElement("div");
         var html = ' <div  class="post"> ';
-        html += ' <h3>' + postsList[x].title + ' </h3>';
-        html += ' <h4> Date: ' + postsList[x].date + ' </h4>';
-        html += ' <span style=\"white-space: pre-line\">'+postsList[x].abstract+'\n\n</span>';
-        html += ' <p><b>Tags:</b> ' + postsList[x].tags +'</p>';
-        html += ' <button id=btnSeeMore'+postsList[x].date+"/"+postsList[x].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
+        html += ' <h3>' + this.postsList[x].title + ' </h3>';
+        html += ' <h4> Date: ' + this.postsList[x].date + ' </h4>';
+        html += ' <span style=\"white-space: pre-line\">'+this.postsList[x].abstract+'\n\n</span>';
+        html += ' <p><b>Tags:</b> ' + this.postsList[x].tags +'</p>';
+        html += ' <button id=btnSeeMore'+this.postsList[x].date+"/"+this.postsList[x].id+' class="btn btn-action" onclick="readMore(this.id)">Read more</button>';
         html += ' </div>';
 
         newDiv.style.paddingBottom = "20px";
