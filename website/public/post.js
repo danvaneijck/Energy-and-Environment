@@ -77,9 +77,6 @@ var userInfo;
 
 }());
 
-function enableEditing(){
-    document.getElementById("content").disabled = false;
-}
 
 async function showPost(id) {
     let postInfo = null;
@@ -88,14 +85,18 @@ async function showPost(id) {
             postInfo = snap.val();
     });
 
-    console.log(postInfo);
+    let author = postInfo.author;
+    console.log(author);
+    if(author === ""){
+        author = "Ian Llewellyn";
+    }
 
     if(postInfo.fileURL == "null"){
         let currentDiv = document.getElementById("postContent");
         currentDiv.innerHTML =
             "<div  class=\"postExpand\">" +
             "<h2>"+postInfo.title+"</h2>" +
-            "<h5>Author: "+postInfo.author+"</h5>" +
+            "<h5>Author: "+author+"</h5>" +
             "<h5> Date: " + postInfo.date + " </h5>"+
             "<span style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
             "<br><br>" +
@@ -109,7 +110,7 @@ async function showPost(id) {
             currentDiv.innerHTML =
                 "<div  class=\"postExpand\">" +
                 "<h2>"+postInfo.title+"</h2>" +
-                "<h5>Author: "+postInfo.author+"</h5>" +
+                "<h5>Author: "+author+"</h5>" +
                 "<h5> Date: " + postInfo.date + " </h5>"+
                 "<span id='content' style=\"white-space: pre-line\">"+postInfo.content+"</span>" +
                 "<br><br>" +

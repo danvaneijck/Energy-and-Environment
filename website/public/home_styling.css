@@ -304,8 +304,7 @@ button:hover {
 }
 
 #logo {
-    margin:auto;
-    width: fit-content;
+    width: 100%;
 }
 
 .search-container{
